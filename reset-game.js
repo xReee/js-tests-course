@@ -5,7 +5,6 @@ var lifeNumber = 3;
 var monsterNumber = 5;
 var rightAnwsers = 0;
 var rightColorWrongPositions = 0;
-var devMode = true;
 
 var changeTool = function(elem) {
   deslockutton();
@@ -210,21 +209,6 @@ $(document).ready(function() {
 
   $(".slot").click(function(){
     changeTool(this);
-  });
-
-  $(".btn-devMode").click(function() {
-    if (devMode) {
-      $(".btn-devMode").val('Desativar modo desenvolvedor')
-      $("#target").attr("src","devmode/devmode-assets/npc/target.svg")
-      $("#goblin").attr("src","devmode/devmode-assets/npc/goblin.svg")
-      $(".devLabel").css({ opacity: 1});
-    } else {
-      $(".btn-devMode").val('Modo desenvolvedor')
-      $(".devLabel").css({ opacity: 0});
-      $("#target").attr("src","reset-assets/npc/target.svg")
-      $("#goblin").attr("src","reset-assets/npc/goblin.svg")
-    }
-    devMode = !devMode;
   });
 
   $("#atackButton").click(atack);
