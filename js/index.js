@@ -1,3 +1,9 @@
+import {Monstro} from './LogicaJogo/Monstro.js';
+import {Jogo} from './LogicaJogo/Jogo.js';
+import {Jogador} from './LogicaJogo/Jogador.js';
+import {Ataque} from './LogicaJogo/Ataque.js';
+
+
 var password = [];
 var userPassword = [0, 1, 2, 3];
 var answer = [];
@@ -5,6 +11,10 @@ var lifeNumber = 3;
 var monsterNumber = 5;
 var rightAnwsers = 0;
 var rightColorWrongPositions = 0;
+
+let monstro = new Monstro();
+let jogador = new Jogador(5);
+let jogo = new Jogo(monstro, jogador);
 
 var changeTool = function(elem) {
   deslockutton();
@@ -153,7 +163,8 @@ function lostGame() {
 }
 
 function resetGame() {
-  password = generatePassword();
+  // password = generatePassword();
+  
   lifeNumber = 3;
   rightAnwsers = 0
   userPassword = [0, 1, 2, 3];
