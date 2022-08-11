@@ -2,6 +2,7 @@ import {Monstro} from './LogicaJogo/Monstro.js';
 import {Jogo} from './LogicaJogo/Jogo.js';
 import {Jogador} from './LogicaJogo/Jogador.js';
 import {Ataque} from './LogicaJogo/Ataque.js';
+import {Modal} from './View/Modal.js';
 
 
 var password = [];
@@ -34,19 +35,6 @@ var changeTool = function(elem) {
   userPassword[id] = newPassword 
   $(elem).children('#tool').attr("src","reset-assets/tools/arma"+ userPassword[id]+".svg");
   blink(elem);
-}
-
-var generatePassword = function() {
-  var newPassword = [];
-  for (var i = 0; i <= 3; i++) {
-    var number = Math.floor((Math.random() * 6));
-    if (newPassword.includes(number)) {
-      i--;
-    } else {
-      newPassword[i] = number;
-    }
-  }
-  return newPassword;
 }
 
 function blink(elem) {
@@ -102,19 +90,10 @@ function deslockutton(){
   }
 }
 
-var checkPassword = function(isAtack) {
-  var rightAnwsers = 0;
-  var rightColorWrongPositions = 0;
-  for(var i = 0; i <= 3; i++) {
-    if (password[i] == userPassword[i]) {
-      rightAnwsers++;
-    } else if (password.includes(userPassword[i])) {
-      rightColorWrongPositions++;
-    } 
-  }
-  this.rightAnwsers = rightAnwsers;
-  this.rightColorWrongPositions = rightColorWrongPositions;
-  speak(rightAnwsers, rightColorWrongPositions, isAtack);
+function checkPassword(isAtack) {
+  var novoAtaque = new Ataque(password);
+  novoAtaque.conferirAtaque(monstro.defesa);
+  speak(novoAtaque.armasCorretasNaPosicaoCorreta, novoAtaque.armasCorretasNaPosicaoErrada, isAtack);
 }
 
 function speak(rightAnwsers, rightColorWrongPositions, isAtack) {
@@ -149,16 +128,12 @@ function resetTools() {
 }
 
 function winGame() {
-  $("#modal-title").html("Parabéns!!!");
-  $("#modal-subtitle").html("Você acertou todas as armas e derrotou o monstro!!!");
-  $('#modal-gameover').modal('show');
+  Modal.fimJogoMostrarResultado(true);
   resetGame();
 }
 
 function lostGame() {
-  $("#modal-title").html("Você perdeu!!");
-  $("#modal-subtitle").html("Tente novamente, você consegue!!");
-  $('#modal-gameover').modal('show');
+  Modal.fimJogoMostrarResultado(false);
   resetGame();
 }
 
@@ -189,7 +164,7 @@ function resetTests() {
 }
 
 function checkGameplay() {
-    $('#modal-gameplay').modal('show');
+  Modal.show('#modal-gameplay');
 }
 
 function addGame() {
@@ -209,19 +184,22 @@ $(document).keypress(function(event){
   var keycode = (event.keyCode ? event.keyCode : event.which);
   console.log(keycode);
   if(keycode == '97') {
-    $("#modal-tutorial").modal('show');
+    Modal.show("#modal-tutorial");
   }
 });
 
 $(document).ready(function() {
   resetGame();
-  $(".devLabel").css({ opacity: 0});
-  $("#modal-tutorial").modal('show');
+  configurarBotoes();
+  Modal.show("#modal-tutorial");
+});
 
-  $(".slot").click(function(){
+function configurarBotoes() {
+  $(".slot").click(function() {
     changeTool(this);
   });
 
   $("#atackButton").click(atack);
   $("#jogadas").click(checkGameplay);
-});
+}
+
