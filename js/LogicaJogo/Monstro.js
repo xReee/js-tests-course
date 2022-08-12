@@ -15,4 +15,8 @@ export class Monstro {
         }
         this.defesa = novaDefesa;
       }
+
+      reset() {
+        this.gerarDefesa();
+      }
 }

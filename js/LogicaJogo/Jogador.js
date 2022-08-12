@@ -10,4 +10,8 @@ export class Jogador {
     sofrerDano() {
         this.vidasDoJogador -= 1;
     }
+
+    reset(vidasDoJogador) {
+        this.vidasDoJogador = vidasDoJogador;
+    }
 }

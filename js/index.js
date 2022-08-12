@@ -2,7 +2,7 @@ import {Monstro} from './LogicaJogo/Monstro.js';
 import {Jogo} from './LogicaJogo/Jogo.js';
 import {Jogador} from './LogicaJogo/Jogador.js';
 import {Ataque} from './LogicaJogo/Ataque.js';
-import {Modal} from './View/Modal.js';
+import {Modal} from './Interface/Modal.js';
 
 
 var password = [];
@@ -13,9 +13,9 @@ var monsterNumber = 5;
 var rightAnwsers = 0;
 var rightColorWrongPositions = 0;
 
-let monstro = new Monstro();
-let jogador = new Jogador(5);
-let jogo = new Jogo(monstro, jogador);
+var monstro = new Monstro();
+var jogador = new Jogador(5);
+var jogo = new Jogo(monstro, jogador);
 
 var changeTool = function(elem) {
   deslockutton();
@@ -77,7 +77,6 @@ function atack() {
 
 function lockButtons() {
   $('#testButton').prop("disabled",true);
-
   $('#testButton').css({ opacity: 0.1});
   $(".shouldSelectTool").css({ opacity: 1});
 }
@@ -138,9 +137,6 @@ function lostGame() {
 }
 
 function resetGame() {
-  // password = generatePassword();
-  
-  lifeNumber = 3;
   rightAnwsers = 0
   userPassword = [0, 1, 2, 3];
   answer = [];
@@ -202,4 +198,3 @@ function configurarBotoes() {
   $("#atackButton").click(atack);
   $("#jogadas").click(checkGameplay);
 }
-
