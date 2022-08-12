@@ -7,7 +7,7 @@ export class Ataque {
 
     conferirAtaque(defesaDoMonstro) {
         var count = 0;
-        for(armaDefensiva in defesaDoMonstro) {
+        for(var armaDefensiva of defesaDoMonstro) {
             if (armaDefensiva == this.armas[count]) {
                 this.acertouAtaque();
             } else if (armaDefensiva in this.armas) { 

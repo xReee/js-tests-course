@@ -5,13 +5,9 @@ import {Ataque} from './LogicaJogo/Ataque.js';
 import {Modal} from './Interface/Modal.js';
 
 
-var password = [];
 var userPassword = [0, 1, 2, 3];
-var answer = [];
 var lifeNumber = 3;
 var monsterNumber = 5;
-var rightAnwsers = 0;
-var rightColorWrongPositions = 0;
 
 var monstro = new Monstro();
 var jogador = new Jogador(5);
@@ -42,10 +38,13 @@ function blink(elem) {
 }
 
 function test() {
-  checkPassword(false);
+  let ataque = new Ataque(userPassword)
+
+  checkPassword(ataque, false);
   lockButtons();
   addGame();
-  if (rightAnwsers != 4) {
+
+  if (ataque.conferirSeGanhou()) {
     blink($("#monster"));
     monsterNumber--;
   } 
@@ -57,22 +56,24 @@ function test() {
 }
 
 function atack() {
+  var ataque = new Ataque(userPassword);
+
   addGame();
   lockButtons();
-  checkPassword(true);
-  if (rightAnwsers != 4) {
-    lifeNumber--;
-    blink($("#heart"));
+  checkPassword(ataque, true);
+  // if (rightAnwsers != 4) {
+  //   lifeNumber--;
+  //   blink($("#heart"));
 
-    if (lifeNumber == 0) {
-      lostGame();
-   } else if (monsterNumber == 0) {
-      resetTests();
-    }
-    updateMenuNumbers();
-  } else {
-    winGame();
-  }
+  //   if (lifeNumber == 0) {
+  //     lostGame();
+  //  } else if (monsterNumber == 0) {
+  //     resetTests();
+  //   }
+  //   updateMenuNumbers();
+  // } else {
+  //   winGame();
+  // }
 }
 
 function lockButtons() {
@@ -89,10 +90,9 @@ function deslockutton(){
   }
 }
 
-function checkPassword(isAtack) {
-  var novoAtaque = new Ataque(password);
+function checkPassword(novoAtaque, ehAtaque) {
   novoAtaque.conferirAtaque(monstro.defesa);
-  speak(novoAtaque.armasCorretasNaPosicaoCorreta, novoAtaque.armasCorretasNaPosicaoErrada, isAtack);
+  speak(novoAtaque.armasCorretasNaPosicaoCorreta, novoAtaque.armasCorretasNaPosicaoErrada, ehAtaque);
 }
 
 function speak(rightAnwsers, rightColorWrongPositions, isAtack) {
@@ -120,12 +120,6 @@ function updateMenuNumbers() {
   $(".life-number").text(lifeNumber);
 }
 
-function resetTools() {
-  for (var i = 1; i <= 4; i++) {
-    $("#n" + i).children('#tool').attr("src","reset-assets/tools/arma"+ userPassword[i - 1] +".svg");
-  }
-}
-
 function winGame() {
   Modal.fimJogoMostrarResultado(true);
   resetGame();
@@ -137,11 +131,12 @@ function lostGame() {
 }
 
 function resetGame() {
-  rightAnwsers = 0
-  userPassword = [0, 1, 2, 3];
-  answer = [];
+  jogador = new Jogador(5);
+  monstro = new Monstro();
+  monstro.gerarDefesa();
+  jogo = new Jogo(monstro, jogador);
+  
   updateMenuNumbers();
-  resetTools();
   resetTests();
   resetSpeach()
   $(".gameplay").html("");
@@ -167,7 +162,7 @@ function addGame() {
   $(".gameplay").append(`
           <div class="row results">
                 <div class="div-transparent"></div>
-                <h4>Corretos: `+ rightAnwsers +` • Corretos na posição errada: `+ rightColorWrongPositions +` • Jogada:</h4>
+                <h4>Corretos: `+ jogo.armasCorretasNaPosicaoCorreta +` • Corretos na posição errada: `+ jogo.armasCorretasNaPosicaoErrada +` • Jogada:</h4>
                 <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+ userPassword[0]+`.svg"></span>
                 <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+userPassword[1]+`.svg"></span>
                 <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+userPassword[2]+`.svg"></span>
