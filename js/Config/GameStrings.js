@@ -1,13 +1,27 @@
-export class GameStrings {
-    
-    // Modals
-    static ModalTitle = "#modal-title";
-    static ModalSubitle = "#modal-subtitle";
-    static ModalGameOver = "#modal-gameover";
+export const TagStrings = {
+    modalTitle: "#modal-title",
+    modalSubitle: "#modal-subtitle",
+    modalGameOver: "#modal-gameover"
+}
 
+export const ClassStrings = {
+    speach: ".speach",
+    bubleLeft: 'bubble-bottom-left',
+    bubleRight: 'bubble-bottom-right',
+
+}
+
+export const MessageString = {
     // GameResults
-    static ModalWinTitle = "Parabéns!!!";
-    static ModalWinSubitle = "Você acertou todas as armas e derrotou o monstro!!!";
-    static ModalLostTitle = "Você perdeu!!";
-    static ModalLostSubitle = "Tente novamente, você consegue!!";
+    modalWinTitle: "Parabéns!!!",
+    modalWinSubitle: "Você acertou todas as armas e derrotou o monstro!!!",
+    modalLostTitle: "Você perdeu!!",
+    modalLostSubitle: "Tente novamente, você consegue!!",
+
+    //Test results
+    rightAnwsers: " arma na posição correta",
+    rightColorWrongPositions: " arma correta está no slot errado",
+    rightAnwsersPlural: " armas nas posições corretas",
+    rightColorWrongPositionsPlural: " armas corretas estão no slot errado!",
+    rightAll: "UAUUUU! <b>Você acertou todas!</b> Você já pode atacar!",
 }

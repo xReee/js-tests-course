@@ -1,4 +1,4 @@
-import { GameStrings } from "../Config/GameStrings.js";
+import { TagStrings, MessageString } from "../Config/GameStrings.js";
 
 export class Modal {
     static show(valorModal) {
@@ -10,16 +10,16 @@ export class Modal {
         var subtitle = ""
 
         if (ganhou) {
-            title = GameStrings.ModalWinTitle
-            subtitle = GameStrings.ModalWinSubitle
+            title = GameStrings.modalWinTitle
+            subtitle = MessageString.modalWinSubitle
             
         } else {
-            title = GameStrings.ModalLostTitle
-            subtitle = GameStrings.ModalLostSubitle
+            title = MessageString.modalLostTitle
+            subtitle = MessageString.modalLostSubitle
         }
         
-        $(GameStrings.ModalTitle).html(title);
-        $(GameStrings.ModalSubitle).html(subtitle);
-        this.show(GameStrings.ModalGameOver);
+        $(TagStrings.modalTitle).html(title);
+        $(TagStrings.modalSubitle).html(subtitle);
+        this.show(TagStrings.modalGameOver);
     }
 }

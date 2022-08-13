@@ -3,6 +3,8 @@ import {Jogo} from './LogicaJogo/Jogo.js';
 import {Jogador} from './LogicaJogo/Jogador.js';
 import {Ataque} from './LogicaJogo/Ataque.js';
 import {Modal} from './Interface/Modal.js';
+import {MessageString} from './Config/GameStrings.js';
+import {FalaNPC, side} from './Interface/FalaNPC.js';
 
 
 var userPassword = [0, 1, 2, 3];
@@ -96,23 +98,24 @@ function checkPassword(novoAtaque, ehAtaque) {
 }
 
 function speak(rightAnwsers, rightColorWrongPositions, isAtack) {
+  let mensagem = ""
+  let lado = isAtack ? side.right : side.left
   if (isAtack == true) {
-    $(".speach").text("Hehe! Você errou, perdeu 1 ponto de vida! Agora você só tem mais " + (lifeNumber - 1) + " de vida!");
-    $(".speach").addClass('bubble-bottom-right').removeClass('bubble-bottom-left');
+    mensagem = "Hehe! Você errou, perdeu 1 ponto de vida! Agora você só tem mais " + (lifeNumber - 1) + " de vida!"
   } else {
-    $(".speach").addClass('bubble-bottom-left').removeClass('bubble-bottom-right');
     if (rightAnwsers != 4) {
-      var rightAnwsersLabel = " arma na posição correta";
-      var rightColorWrongPositionsLabel = " arma correta está no slot errado";
-      if (rightAnwsers != 1) rightAnwsersLabel = " armas nas posições corretas";
-      if (rightColorWrongPositions != 1) rightColorWrongPositionsLabel = " armas corretas estão no slot errado!";
-      $(".speach").html("<b>Resultado do teste</b>: você acertou " + rightAnwsers + rightAnwsersLabel + "! Tirando isso, " + 
-                        rightColorWrongPositions + rightColorWrongPositionsLabel);
+      let rightAnwsersLb = rightAnwsers > 1 ? MessageString.rightAnwsersPlural : MessageString.rightAnwsers
+      let rightColorWrongPositionsLb = rightColorWrongPositions > 1 ? MessageString.rightColorWrongPositionsPlural : MessageString.rightColorWrongPositions
+      mensagem = "<b>Resultado do teste</b>: você acertou " +
+        rightAnwsers + rightAnwsersLb + "! Tirando isso, " +
+        rightColorWrongPositions + rightColorWrongPositionsLb;
     } else {
-      $(".speach").html("UAUUUU! <b>Você acertou todas!</b> Você já pode atacar!")
+      mensagem = MessageString.rightAll;
     }
   }
-  
+  let novaFala = new FalaNPC(mensagem, lado);
+  novaFala.speak();
+
 }
 
 function updateMenuNumbers() {
