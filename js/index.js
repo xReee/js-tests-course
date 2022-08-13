@@ -3,7 +3,6 @@ import {Jogo} from './LogicaJogo/Jogo.js';
 import {Jogador} from './LogicaJogo/Jogador.js';
 import {Ataque} from './LogicaJogo/Ataque.js';
 import {Modal} from './Interface/Modal.js';
-import {MessageString} from './Config/GameStrings.js';
 import {FalaNPC, side} from './Interface/FalaNPC.js';
 
 
@@ -94,28 +93,13 @@ function deslockutton(){
 
 function checkPassword(novoAtaque, ehAtaque) {
   novoAtaque.conferirAtaque(monstro.defesa);
-  speak(novoAtaque.armasCorretasNaPosicaoCorreta, novoAtaque.armasCorretasNaPosicaoErrada, ehAtaque);
-}
-
-function speak(rightAnwsers, rightColorWrongPositions, isAtack) {
-  let mensagem = ""
-  let lado = isAtack ? side.right : side.left
-  if (isAtack == true) {
-    mensagem = "Hehe! Você errou, perdeu 1 ponto de vida! Agora você só tem mais " + (lifeNumber - 1) + " de vida!"
+  if (ehAtaque) {
+    let fala = new FalaNPC(side.right);
+    fala.speakAttack(lifeNumber);
   } else {
-    if (rightAnwsers != 4) {
-      let rightAnwsersLb = rightAnwsers > 1 ? MessageString.rightAnwsersPlural : MessageString.rightAnwsers
-      let rightColorWrongPositionsLb = rightColorWrongPositions > 1 ? MessageString.rightColorWrongPositionsPlural : MessageString.rightColorWrongPositions
-      mensagem = "<b>Resultado do teste</b>: você acertou " +
-        rightAnwsers + rightAnwsersLb + "! Tirando isso, " +
-        rightColorWrongPositions + rightColorWrongPositionsLb;
-    } else {
-      mensagem = MessageString.rightAll;
-    }
+    let fala = new FalaNPC(side.left);
+    fala.speakTest(novoAtaque.armasCorretasNaPosicaoCorreta, novoAtaque.armasCorretasNaPosicaoErrada);
   }
-  let novaFala = new FalaNPC(mensagem, lado);
-  novaFala.speak();
-
 }
 
 function updateMenuNumbers() {
