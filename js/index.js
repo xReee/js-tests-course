@@ -101,17 +101,25 @@ function checkPassword(novoAtaque, ehAtaque) {
     fala.speakTest(novoAtaque.armasCorretasNaPosicaoCorreta, novoAtaque.armasCorretasNaPosicaoErrada);
   }
 }
+// MIGRAR
+function resetSpeach() {
+  let fala = new FalaNPC(side.left);
+  fala.resetSpeach();
+}
 
+//MIGRAR
 function updateMenuNumbers() {
   $(".monster-number").text(monsterNumber);
   $(".life-number").text(lifeNumber);
 }
 
+// MIGRAR
 function winGame() {
   Modal.fimJogoMostrarResultado(true);
   resetGame();
 }
 
+// MIGRAR
 function lostGame() {
   Modal.fimJogoMostrarResultado(false);
   resetGame();
@@ -128,11 +136,6 @@ function resetGame() {
   resetSpeach()
   $(".gameplay").html("");
   $(".shouldSelectTool").css({ opacity: 0});
-}
-
-function resetSpeach() {
-  $(".speach").html("Hmm.. melhor testar primeiro!");
-  $(".speach").addClass('bubble-bottom-left').removeClass('bubble-bottom-right');
 }
 
 function resetTests() {
@@ -172,6 +175,7 @@ $(document).ready(function() {
   Modal.show("#modal-tutorial");
 });
 
+//MIGRAR
 function configurarBotoes() {
   $(".slot").click(function() {
     changeTool(this);

@@ -10,6 +10,10 @@ export class FalaNPC {
         this.ladoBalao = ladoBalao
     }
 
+    resetSpeach() {
+        this.speak("Hmm.. melhor testar primeiro!");
+      }
+
     speakAttack(lifeNumber) {
         let mensagem = "Hehe! Você errou, perdeu 1 ponto de vida! Agora você só tem mais " + (lifeNumber - 1) + " de vida!"
         this.speak(mensagem);

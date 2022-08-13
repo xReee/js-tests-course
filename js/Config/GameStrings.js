@@ -6,6 +6,8 @@ export const TagStrings = {
 
 export const ClassStrings = {
     speach: ".speach",
+    
+    //no dots in bubles, it's using html() function
     bubleLeft: 'bubble-bottom-left',
     bubleRight: 'bubble-bottom-right',
 

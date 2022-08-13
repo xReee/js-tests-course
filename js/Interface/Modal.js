@@ -9,15 +9,9 @@ export class Modal {
         var title = ""
         var subtitle = ""
 
-        if (ganhou) {
-            title = GameStrings.modalWinTitle
-            subtitle = MessageString.modalWinSubitle
-            
-        } else {
-            title = MessageString.modalLostTitle
-            subtitle = MessageString.modalLostSubitle
-        }
-        
+        title = ganhou ? GameStrings.modalWinTitle : MessageString.modalLostTitle
+        subtitle = ganhou ? MessageString.modalWinSubitle : MessageString.modalLostSubitle
+          
         $(TagStrings.modalTitle).html(title);
         $(TagStrings.modalSubitle).html(subtitle);
         this.show(TagStrings.modalGameOver);
