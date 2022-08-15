@@ -5,6 +5,7 @@ import {FalaNPC, side} from './FalaNPC.js';
 var game = new GameMain();
 var testTryNumber = 5;
 var lifeNumber = 0;
+var buttonLocked = false
 
 $(document).ready(function() {
     Modal.show("#modal-tutorial");
@@ -13,21 +14,23 @@ $(document).ready(function() {
 
 function resetGame() {
   game = new GameMain();
+  testTryNumber = 5;
   lifeNumber = game.jogador.vidasDoJogador;
-  
+  buttonLocked = false;
+
   updateMenuNumbers();
   configurarBotoes();
-  // resetTests();
   resetSpeach()
   $(".gameplay").html("");
   $(".shouldSelectTool").css({ opacity: 0});
+  controlButton(true);
 }
 
 function updateMenuNumbers() {
   lifeNumber = game.jogador.vidasDoJogador;
+  testTryNumber = game.jogador.numeroTestes;
   $(".monster-number").text(testTryNumber);
   $(".life-number").text(lifeNumber);
-
 }
 
 function resetSpeach() {
@@ -38,7 +41,6 @@ function resetSpeach() {
 //exibir ajuda
 $(document).keypress(function(event){
   var keycode = (event.keyCode ? event.keyCode : event.which);
-  console.log(keycode);
   if(keycode == '97') {
     Modal.show("#modal-tutorial");
   }
@@ -50,13 +52,8 @@ function configurarBotoes() {
   });
 
   $("#atackButton").click(attackAction);
+  $("#testButton").click(testAction);
   $("#jogadas").click(checkGameplay);
-}
-
-function attackAction() {
-  game.testarJogo(true);
-  updateMenuNumbers();
-  blink("#heart");
 }
 
 function blink(elem) {
@@ -79,13 +76,77 @@ function changeTool(elem) {
       shouldContinue = false;
     }
   }
-  
+  controlButton(true);
   $(elem).children('#tool').attr("src","reset-assets/tools/arma"+ newTool +".svg");
+  $(".shouldSelectTool").css({ opacity: 0});
 }
 
 function checkGameplay() {
   Modal.show('#modal-gameplay');
 }
+
+function buttonAction(isTesting) {
+  var buttonID = isTesting ? "#monster" : "#heart"
+  addGame();
+  $(".shouldSelectTool").css({ opacity: 1});
+  game.testarJogo(isTesting);
+  updateMenuNumbers();
+  blink(buttonID);
+  controlButton(false);
+  if (!isTesting) {checkResults();}
+  speakResults(!isTesting)
+}
+
+function attackAction() {
+  buttonAction(false);
+}
+
+function testAction() {
+  if (!buttonLocked) {
+    buttonAction(true);
+  }
+}
+
+function controlButton(shouldUnlock) {
+  var unlockCondition = (testTryNumber > 0 && shouldUnlock);
+  $('#testButton').prop("disabled", unlockCondition);
+  $('#testButton').css({ opacity: unlockCondition ? 1 : 0.1});
+  $(".shouldSelectTool").css({ opacity: unlockCondition});
+  buttonLocked = !unlockCondition;
+}
+
+function checkResults() {
+  if (game.jogo.verificarSeTerminou()) {
+    var result = game.verificarResultadoFinal()
+    Modal.fimJogoMostrarResultado(result);
+    resetGame();
+  }
+}
+
+function speakResults(isAttacking) {
+  if (isAttacking) {
+    let speak = new FalaNPC(side.right);
+    speak.speakAttack(lifeNumber);
+  } else {
+    let speak = new FalaNPC(side.left);
+    speak.speakTest(game.armasCorretasNaPosicaoCorreta, game.armasCorretasNaPosicaoErrada);
+  }
+}
+
+function addGame() {
+  var userGame = game.jogador.jogadaAtual();
+  $(".gameplay").append(`
+          <div class="row results">
+                <div class="div-transparent"></div>
+                <h4>Corretos: `+ game.armasCorretasNaPosicaoCorreta +` • Corretos na posição errada: `+ game.armasCorretasNaPosicaoErrada +` • Jogada:</h4>
+                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+ userGame[0]+`.svg"></span>
+                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+userGame[1]+`.svg"></span>
+                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+userGame[2]+`.svg"></span>
+                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+userGame[3]+`.svg"></span>
+          </div>
+    `);
+}
+
 
 // function test() {
 //   let ataque = new Ataque(userPassword)
@@ -126,19 +187,6 @@ function checkGameplay() {
 //   // }
 // }
 
-// function lockButtons() {
-//   $('#testButton').prop("disabled",true);
-//   $('#testButton').css({ opacity: 0.1});
-//   $(".shouldSelectTool").css({ opacity: 1});
-// }
-
-// function deslockutton(){
-//   if (monsterNumber != 0) {
-//     $('#testButton').prop("disabled",false);
-//     $('#testButton').css({ opacity: 1});
-//     $(".shouldSelectTool").css({ opacity: 0});
-//   }
-// }
 
 // function checkPassword(novoAtaque, ehAtaque) {
 //   novoAtaque.conferirAtaque(monstro.defesa);
@@ -175,25 +223,4 @@ function checkGameplay() {
 //   resetSpeach()
 //   $(".gameplay").html("");
 //   $(".shouldSelectTool").css({ opacity: 0});
-// }
-
-// function resetTests() {
-//   monsterNumber = 5;
-//   $("#testButton").bind('click', test);
-//   $('.testButton').css({ opacity: 1});
-// }
-
-
-
-// function addGame() {
-//   $(".gameplay").append(`
-//           <div class="row results">
-//                 <div class="div-transparent"></div>
-//                 <h4>Corretos: `+ jogo.armasCorretasNaPosicaoCorreta +` • Corretos na posição errada: `+ jogo.armasCorretasNaPosicaoErrada +` • Jogada:</h4>
-//                 <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+ userPassword[0]+`.svg"></span>
-//                 <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+userPassword[1]+`.svg"></span>
-//                 <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+userPassword[2]+`.svg"></span>
-//                 <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+userPassword[3]+`.svg"></span>
-//           </div>
-//     `);
 // }

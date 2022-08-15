@@ -3,30 +3,31 @@ export class Ataque {
         this.armas = armas;
         this.armasCorretasNaPosicaoCorreta = 0;
         this.armasCorretasNaPosicaoErrada = 0;
-      }
+    }
 
     conferirAtaque(defesaDoMonstro) {
         var count = 0;
-        for(var armaDefensiva of defesaDoMonstro) {
+        for (var armaDefensiva of defesaDoMonstro) {
             if (armaDefensiva == this.armas[count]) {
                 this.acertouAtaque();
-            } else if (armaDefensiva in this.armas) { 
+            } else if (armaDefensiva in this.armas) {
                 this.acertouArma();
             }
 
             count++;
         }
+        return this.conferirSeGanhou();
     }
-    
-    acertouAtaque(){
+
+    acertouAtaque() {
         this.armasCorretasNaPosicaoCorreta++;
     }
-    
-    acertouArma(){
+
+    acertouArma() {
         this.armasCorretasNaPosicaoErrada++;
     }
 
     conferirSeGanhou() {
-        return this.armasCorretasNaPosicaoCorreta == 5;
+        return this.armasCorretasNaPosicaoCorreta == 4;
     }
 }

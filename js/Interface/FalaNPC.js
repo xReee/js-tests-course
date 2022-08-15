@@ -15,7 +15,7 @@ export class FalaNPC {
       }
 
     speakAttack(lifeNumber) {
-        let mensagem = "Hehe! Você errou, perdeu 1 ponto de vida! Agora você só tem mais " + (lifeNumber - 1) + " de vida!"
+        let mensagem = "Hehe! Você errou, perdeu 1 ponto de vida! Agora você só tem mais " + lifeNumber + "!"
         this.speak(mensagem);
     }
 

@@ -1,6 +1,7 @@
 export class Jogador {
     constructor(vidasDoJogador) {
         this.vidasDoJogador = vidasDoJogador;
+        this.numeroTestes = vidasDoJogador;
         this.jogada = [0,1,2,3];
     }
 
@@ -12,12 +13,12 @@ export class Jogador {
         return this.jogada;
     }
     
-    foiDerrotado(ataque) {
-        return this.vidasDoJogador;
-    }
-
     sofrerDano() {
         this.vidasDoJogador -= 1;
+    }
+
+    gastarTeste() {
+        this.numeroTestes -= 1;
     }
 
     reset(vidasDoJogador) {
