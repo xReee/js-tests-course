@@ -9,7 +9,7 @@ export class Modal {
         var title = ""
         var subtitle = ""
 
-        title = ganhou ? GameStrings.modalWinTitle : MessageString.modalLostTitle
+        title = ganhou ? MessageString.modalWinTitle : MessageString.modalLostTitle
         subtitle = ganhou ? MessageString.modalWinSubitle : MessageString.modalLostSubitle
           
         $(TagStrings.modalTitle).html(title);

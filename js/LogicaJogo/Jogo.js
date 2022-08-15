@@ -9,7 +9,6 @@ export class Jogo {
         if (this.monstro.defesa.length < 1) {
             this.monstro.gerarDefesa()
         }
-        console.log(this.monstro.defesa);
         var defesa = this.monstro.defesa
         this.vitoria = ataque.conferirAtaque(defesa);
 
@@ -29,8 +28,6 @@ export class Jogo {
     }
     
     verificarSeTerminou() {
-        console.log(this.verificarSeJogadorPerdeu())
-        console.log(this.vitoria)
         return this.verificarSeJogadorPerdeu() || this.verificarSeJogadorGanhou()
     }
 }
