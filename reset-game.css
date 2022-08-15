@@ -137,6 +137,11 @@ top: 40px;
     height: 0% !important; 
 }
 
+.tutorial-help {
+    text-align: center;
+    color: white;
+}
+
 /* buttons test and atack */
 p {
 	transform: translate(0, -5%);
