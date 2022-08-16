@@ -20,6 +20,7 @@ Para rodar o jogo em sua máquina, utilize o seguinte na linha de comando:
 ```bash
 python -m SimpleHTTPServer
 ```
+E acesse aqui -> http://localhost:8000/
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

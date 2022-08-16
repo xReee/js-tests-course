@@ -77,7 +77,7 @@ function changeTool(elem) {
     }
   }
   controlButton(true);
-  $(elem).children('#tool').attr("src","reset-assets/tools/arma"+ newTool +".svg");
+  $(elem).children('#tool').attr("src","reset-assets/elements/"+ newTool +".svg");
   $(".shouldSelectTool").css({ opacity: 0});
 }
 
@@ -139,88 +139,10 @@ function addGame() {
           <div class="row results">
                 <div class="div-transparent"></div>
                 <h4>Corretos: `+ game.armasCorretasNaPosicaoCorreta +` • Corretos na posição errada: `+ game.armasCorretasNaPosicaoErrada +` • Jogada:</h4>
-                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+ userGame[0]+`.svg"></span>
-                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+userGame[1]+`.svg"></span>
-                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+userGame[2]+`.svg"></span>
-                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/tools/arma`+userGame[3]+`.svg"></span>
+                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/elements/`+ userGame[0]+`.svg"></span>
+                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/elements/`+userGame[1]+`.svg"></span>
+                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/elements/`+userGame[2]+`.svg"></span>
+                <span class="col-md-2 gameplay-slot"><img id="tool" src="reset-assets/elements/`+userGame[3]+`.svg"></span>
           </div>
     `);
 }
-
-
-// function test() {
-//   let ataque = new Ataque(userPassword)
-
-//   checkPassword(ataque, false);
-//   lockButtons();
-//   addGame();
-
-//   if (ataque.conferirSeGanhou()) {
-//     blink($("#monster"));
-//     monsterNumber--;
-//   } 
-//   if (monsterNumber == 0) {
-//     $('#testButton').unbind('click', test);
-//     $('#testButton').css({ opacity: 0.1});
-//   }
-//   updateMenuNumbers();
-// }
-
-// function atack() {
-//   var ataque = new Ataque(userPassword);
-
-//   addGame();
-//   lockButtons();
-//   checkPassword(ataque, true);
-//   // if (rightAnwsers != 4) {
-//   //   lifeNumber--;
-//   //   blink($("#heart"));
-
-//   //   if (lifeNumber == 0) {
-//   //     lostGame();
-//   //  } else if (monsterNumber == 0) {
-//   //     resetTests();
-//   //   }
-//   //   updateMenuNumbers();
-//   // } else {
-//   //   winGame();
-//   // }
-// }
-
-
-// function checkPassword(novoAtaque, ehAtaque) {
-//   novoAtaque.conferirAtaque(monstro.defesa);
-//   if (ehAtaque) {
-//     let fala = new FalaNPC(side.right);
-//     fala.speakAttack(lifeNumber);
-//   } else {
-//     let fala = new FalaNPC(side.left);
-//     fala.speakTest(novoAtaque.armasCorretasNaPosicaoCorreta, novoAtaque.armasCorretasNaPosicaoErrada);
-//   }
-// }
-
-
-// // MIGRAR
-// function winGame() {
-//   Modal.fimJogoMostrarResultado(true);
-//   resetGame();
-// }
-
-// // MIGRAR
-// function lostGame() {
-//   Modal.fimJogoMostrarResultado(false);
-//   resetGame();
-// }
-
-// function resetGame() {
-//   jogador = new Jogador(5);
-//   monstro = new Monstro();
-//   monstro.gerarDefesa();
-//   jogo = new Jogo(monstro, jogador);
-  
-//   updateMenuNumbers();
-//   resetTests();
-//   resetSpeach()
-//   $(".gameplay").html("");
-//   $(".shouldSelectTool").css({ opacity: 0});
-// }
