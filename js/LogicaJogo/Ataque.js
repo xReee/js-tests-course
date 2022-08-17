@@ -10,7 +10,7 @@ export class Ataque {
         for (var armaDefensiva of defesaDoMonstro) {
             if (armaDefensiva == this.armas[count]) {
                 this.acertouAtaque();
-            } else if (armaDefensiva in this.armas) {
+            } else if (this.armas.includes(armaDefensiva)) {
                 this.acertouArma();
             }
 

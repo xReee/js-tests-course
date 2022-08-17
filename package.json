@@ -5,7 +5,8 @@
     "jest": "^28.1.3"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "clear_jest": "jest --clearCache"
   },
   "jest": {
     "transform": {
