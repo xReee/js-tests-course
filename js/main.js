@@ -7,7 +7,7 @@ import {Ataque} from './LogicaJogo/Ataque.js';
 export class GameMain {
   constructor() {
     this.monstro = new Monstro();
-    this.jogador = new Jogador(5);
+    this.jogador = new Jogador(3);
     this.jogo = new Jogo(this.monstro, this.jogador);
     this.armasCorretasNaPosicaoCorreta = 0;
     this.armasCorretasNaPosicaoErrada = 0;
@@ -18,19 +18,20 @@ export class GameMain {
     var novoTeste = new Ataque(jogadaAtual);
 
     this.jogo.testarDefesa(novoTeste, ehTeste);
+    
+    if (!ehTeste) {
+      this.jogador.recomecarTestes();
+    }
 
     this.armasCorretasNaPosicaoCorreta = novoTeste.armasCorretasNaPosicaoCorreta;
     this.armasCorretasNaPosicaoErrada = novoTeste.armasCorretasNaPosicaoErrada;
 
-    console.log(jogadaAtual)
   }
 
   verificarResultadoFinal() {
     var jogadorDerrotado = this.jogo.verificarSeJogadorPerdeu();
     var jogadorGanhou = this.jogo.verificarSeJogadorGanhou();
-
-    console.log(jogadorGanhou)
-
+    
     return !jogadorDerrotado && jogadorGanhou
   }
 

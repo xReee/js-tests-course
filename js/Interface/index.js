@@ -92,13 +92,14 @@ function buttonAction(isTesting) {
   game.testarJogo(isTesting);
   updateMenuNumbers();
   blink(buttonID);
-  controlButton(false);
+  controlButton(!isTesting);
   if (!isTesting) {checkResults();}
   speakResults(!isTesting)
 }
 
 function attackAction() {
   buttonAction(false);
+  updateMenuNumbers();
 }
 
 function testAction() {
