@@ -1,7 +1,7 @@
 export class Jogador {
     constructor(vidasDoJogador) {
         this.vidasDoJogador = vidasDoJogador;
-        this.numeroTestes = vidasDoJogador;
+        this.numeroTestes = 5;
         this.jogada = [0,1,2,3];
     }
 
@@ -19,6 +19,10 @@ export class Jogador {
 
     gastarTeste() {
         this.numeroTestes -= 1;
+    }
+
+    recomecarTestes() {
+        this.numeroTestes = 5;
     }
 
     reset(vidasDoJogador) {
