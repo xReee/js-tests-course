@@ -1,4 +1,4 @@
-import { Ataque } from './Ataque.js';
+import { Ataque, AtaqueSpy } from './Ataque.js';
 
 
 test('conferirAtaque quando tiver uma arma certa no canto errado', () => {
@@ -11,13 +11,16 @@ test('conferirAtaque quando tiver uma arma certa no canto errado', () => {
     expect(ataque.armasCorretasNaPosicaoErrada).toEqual(1);
 });
 
-test('dado: ArmasCertas, quando: conferirAtaque se ganhou', () => {
+test('GIVEN ataqueCorreto, WHEN conferir ataque, THEN o jogador ganhou', () => {
+    // given
     var armas = [1, 2, 3, 4];
     var ataque = new Ataque(armas)
     var defesaDoMonstro = [1, 2, 3, 4];
 
+    //when
     var resultado = ataque.conferirAtaque(defesaDoMonstro);
 
+    //then
     expect(resultado).toBeTruthy();
 });
 
@@ -33,4 +36,19 @@ describe('GIVEN ataqueCorreto', () => {
             expect(resultado).toBeTruthy();
         });
     });
+});
+
+test('GIVEN ataqueCorreto, WHEN conferir ataque, THEN acertou 4 armas e chamou acertouArmas', () => {
+    // given
+    var armas = [1, 2, 3, 4];
+    var ataque = new AtaqueSpy(armas)
+    var defesaDoMonstro = [4, 3, 2, 1];
+
+    //when
+    var resultado = ataque.conferirAtaque(defesaDoMonstro);
+
+    //then
+    expect(ataque.chamouAcertouArma).toEqual(4);
+    expect(resultado).toBeFalsy();
+    
 });

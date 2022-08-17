@@ -20,3 +20,10 @@ export class Monstro {
     this.gerarDefesa();
   }
 }
+
+export class MonstroStub extends Monstro{
+  // sobrescrevendo a função da classe original
+  gerarDefesa = function () {
+    this.defesa = [1,2,3,4]
+  }
+}

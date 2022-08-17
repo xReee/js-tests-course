@@ -31,3 +31,18 @@ export class Ataque {
         return this.armasCorretasNaPosicaoCorreta == 4;
     }
 }
+
+export class AtaqueSpy extends Ataque { 
+    constructor(armas) {
+        super(armas)
+        this.chamouAcertouArma = 0
+    }
+
+    // sobrescrevendo a função da classe original
+    acertouArma() {
+        //contiua rodando para ter o que precisa ter na função principal
+        super.acertouArma()
+        //adiciona uma linha nova à função para adicionar um contador
+        this.chamouAcertouArma++;
+    }
+}
