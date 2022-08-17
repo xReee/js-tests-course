@@ -11,7 +11,7 @@ export class Ataque {
             if (armaDefensiva == this.armas[count]) {
                 this.acertouAtaque();
             } else if (armaDefensiva in this.armas) {
-                this.acertouArma();
+                
             }
 
             count++;
